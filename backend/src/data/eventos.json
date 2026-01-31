@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "titulo": "Introducción a Node.js",
+        "tipo": "Charla",
+        "fecha": "2026-02-10",
+        "modalidad": "Online",
+        "ubicacion": "Online",
+        "descripcion": "Charla introductoria sobre Node.js y su uso en aplicaciones backend.",
+        "activo": true
+    },
+    {
+        "id": 2,
+        "titulo": "Primeros pasos con APIs REST",
+        "tipo": "Charla",
+        "fecha": "2026-01-18",
+        "modalidad": "Presencial",
+        "ubicacion": "Av. Mitre 123, Buenos Aires",
+        "descripcion": "Introducción a los conceptos básicos de APIs REST y su funcionamiento.",
+        "activo": false
+    },
+    {
+        "id": 3,
+        "titulo": "Workshop de backend desde cero",
+        "tipo": "Workshop",
+        "fecha": "2026-02-05",
+        "modalidad": "Presencial",
+        "ubicacion": "Av. Pellegrini 332, Rosario",
+        "descripcion": "Workshop práctico para comenzar a desarrollar una buena estructura en proyectos backend",
+        "activo": true
+    },
+    {
+        "id": 4,
+        "titulo": "Celebración aniversario de la empresa",
+        "tipo": "Celebración",
+        "fecha": "2026-02-23",
+        "modalidad": "Presencial",
+        "ubicacion": "Av. Mitre 123, Buenos Aires",
+        "descripcion": "Evento interno para celebrar un nuevo aniversario de la empresa.",
+        "activo": true
+    },
+    {
+        "id": 5,
+        "titulo": "Workshop pensamiento de diseño",
+        "tipo": "Workshop",
+        "fecha": "2026-03-05",
+        "modalidad": "Online",
+        "ubicacion": "Online",
+        "descripcion": "Workshop práctico para para mejorar la experiencia del cliente.",
+        "activo": true
+    },
+    {
+        "id": 6,
+        "titulo": "Charla sobre Feedback constructivo",
+        "tipo": "Charla",
+        "fecha": "2026-02-15",
+        "modalidad": "Online",
+        "ubicacion": "Online",
+        "descripcion": "Charla sobre como dar y recibir críticas para mejorar",
+        "activo": true
+    }
+]
