@@ -8,9 +8,9 @@ function leerEventosJSON(){
 };
 
 //get: todos los eventos
-router.get("/", (req,res) => {
+router.get("/", async (req,res) => {
     try {
-        const datos = leerEventosJSON();
+        const datos = await leerEventosJSON();
         res.json(datos);
     }
     catch (err) {
@@ -22,11 +22,11 @@ router.get("/", (req,res) => {
 });
 
 //get/:id evento con id especifico
-router.get("/:id", (req,res) =>{
+router.get("/:id", async (req,res) =>{
     try {
-        const eventos = leerEventosJSON();
-        const idParseado = parseInt(req.params.id); 
-        const eventoConId = eventos.find(e => e.id === idParseado);
+        const eventos = await leerEventosJSON();
+        let idParseado = parseInt(req.params.id); 
+        let eventoConId = eventos.find(e => e.id === idParseado);
 
         if (!eventoConId){
             console.log("No existen eventos con ese id");
@@ -40,6 +40,40 @@ router.get("/:id", (req,res) =>{
         console.log(err);
         res.status(500).json({
             mensaje: `Error interno al obtener el evento con id ${idParseado}`
+        })
+    }
+});
+
+//get:/id/feriados, evento especifico mas info de feriado
+router.get("/:id/feriado", async (req,res) => {
+    try{
+
+        const eventos = await leerEventosJSON();
+        let idParseado = parseInt(req.params.id); 
+        let eventoConId = eventos.find(e => e.id === idParseado);
+        
+        if (!eventoConId){
+            console.log("No existen eventos con ese id");
+            return res.status(404).json({
+                mensaje: `No se encontró un evento con id ${idParseado}`
+            });
+        }
+        let año = eventoConId.fecha.split("-")[0]; //separarlo y guardar solo el año
+        
+        const response = await fetch(`https://date.nager.at/api/v3/PublicHolidays/${año}/${eventoConId.pais}`);
+        const feriados = await response.json();
+        let feriado = feriados.find(f => f.date === eventoConId.fecha);
+        console.log("esto es feriado", feriado);
+        res.json({
+            eventoConId,
+            esFeriado: feriado ? true : false,
+            tipoFeriado: feriado ? feriado.localName : null
+        })
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({
+            mensaje: `Error interno al consultar feriados`
         })
     }
 });
