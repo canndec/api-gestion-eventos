@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de Eventos</title>
+    <script defer src="js/main.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Gestion de eventos profesionales</h1>
+        <input id="inputFiltrar" type="text" placeholder="Buscar...">
+    </header>
+    <main>
+        <section>
+            <div>
+                <button id="botonOrdenarFecha">Ordenar por fecha</button>
+                <label for="tipoDeEvento">Filtrar por</label>
+                <select name="tipo" id="tipoDeEvento">
+                    <option value="todos">Todos</option>
+                    <option value="Charla">Charlas</option>
+                    <option value="Workshop">Workshops</option>
+                    <option value="Celebración">Celebraciones</option>
+                </select>
+            </div>
+        </section>
+        <section >
+            <!--seccion de cartas con descripciones-->
+            <div id="contenedorEventos">
+            </div>
+        </section>
+    </main>
+</body>
+</html>
