@@ -3,8 +3,12 @@ import fs from "fs/promises";
 const router = Router();
 
 async function leerEventosJSON(){
-    const datos = await fs.readFile("src/data/eventos.json", "utf-8");
-    return JSON.parse(datos);
+    try{
+        const datos = await fs.readFile("src/data/eventos.json", "utf-8");
+        return JSON.parse(datos);
+    }catch(err){
+        console.log("Error interno para leer el archivo JSON: ", err);
+    }
 };
 
 //get: todos los eventos
@@ -14,9 +18,9 @@ un filtro,  este lo toma para sacar la info correspondiente
 con Query string se puede usar ej:activo=true y hace que req.query devuelva el dato*/
 router.get("/", async (req,res) => {
     try {
-        const eventosDeJson = await leerEventosJSON();
-        const eventos = Array.isArray(eventosDeJson) ? eventosDeJson : eventosDeJson.eventos; //lo mismo parte del objeto para manejar un array
+        const eventos = await leerEventosJSON();
         let datosFiltrados = eventos;
+
         let eventoActivo = req.query.activo; //devuelve el true o false del activo:"";
 
         if(eventoActivo === "true"){
@@ -61,22 +65,22 @@ router.get("/:id", async (req,res) =>{
 router.get("/:id/feriado", async (req,res) => {
     try{
         const eventos = await leerEventosJSON();
-        let idParseado = parseInt(req.params.id); 
-        let eventoConId = eventos.find(e => e.id === idParseado);
+        let idParseado = parseInt(req.params.id);  //solo id
+        let infoEvento = eventos.find(e => e.id === idParseado); //el coincidente
         
-        if (!eventoConId){
+        if (!infoEvento){
             console.log("No existen eventos con ese id");
             return res.status(404).json({
                 mensaje: `No se encontró un evento con id ${idParseado}`
             });
         }
-        let año = eventoConId.fecha.split("-")[0]; //separarlo y guardar solo el año
+        let año = infoEvento.fecha.split("-")[0]; //separarlo y guardar solo el año
         
-        const response = await fetch(`https://date.nager.at/api/v3/PublicHolidays/${año}/${eventoConId.pais}`); //API externa
+        const response = await fetch(`https://date.nager.at/api/v3/PublicHolidays/${año}/${infoEvento.pais}`); //API externa
         const feriados = await response.json(); //parseo
-        let feriado = feriados.find(f => f.date === eventoConId.fecha);
+        let feriado = feriados.find(f => f.date === infoEvento.fecha);
         res.json({
-            eventoConId,
+            infoEvento,
             esFeriado: feriado ? true : false,
             tipoFeriado: feriado ? feriado.localName : null
         }); //se agrega como obj el evento si es feriado y su nombre en caso de corresponder

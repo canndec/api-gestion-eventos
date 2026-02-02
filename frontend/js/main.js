@@ -7,8 +7,9 @@ let dataDeEventos = [];
 
 //filtro de busqueda
 let inputParaFiltrar = document.getElementById("inputFiltrar");
+
 inputParaFiltrar.addEventListener("keyup", () =>{
-    let tituloABuscar = inputParaFiltrar.value.toLowerCase();
+    let tituloABuscar = inputParaFiltrar.value.toLowerCase(); //lo que ingresa el usuario
     let tituloCoincidente = dataDeEventos.filter(e => e.titulo.toLowerCase().includes(tituloABuscar));
     if(tituloCoincidente.length === 0){
         contenedorEventos.innerHTML = `<div id="mensajeNoHay"><p>No hay eventos relacionados</p></div>`;
@@ -19,12 +20,13 @@ inputParaFiltrar.addEventListener("keyup", () =>{
 
 //ordenar por fecha
 let ordenarPorFecha = document.getElementById("botonOrdenarFecha");
+
 ordenarPorFecha.addEventListener("click", () => {
     let ordenados = [...dataDeEventos].sort((a,b) => new Date(a.fecha) - new Date(b.fecha)); 
     mostrarEventos(ordenados);
     });
 
-    
+
 // filtro para seleccionar opcion (tipoEvento)
 let opcionDeFiltrado = document.getElementById("tipoDeEvento");
 opcionDeFiltrado.addEventListener("change",() => {
@@ -81,20 +83,25 @@ function mostrarEventos(dataDeEventos){
             <p>Ubicación: ${mostrarUbicacion(evento.ubicacion)}</p>
             <p>${mostrarActivo(evento.activo)}</p>
             <p id="feriado-${evento.id}">Consultado feriado...</p>
+            <button id="botonEditar" onclick="editarEvento(${evento.id})">Editar</button>
         </div>
         `;
     });
     contenedorEventos.innerHTML = html;
     dataDeEventos.forEach(evento => obtenerFeriado(evento.id)); //en caso de que sea feriado(por API) lo agrega
+    
 }
 
+// funciones para mejorar la visual
 function mostrarModalidad(modalidad){
+// virtual y presencial
     let tipoModalidad = modalidad === "Online" ? "Virtual" : modalidad;
     let nombreClase = tipoModalidad === "Virtual" ? "modalidadVirtual" : "modalidadPresencial";
     return `<strong class="${nombreClase}">${tipoModalidad}</strong>`;
 }
 
 function mostrarUbicacion(ubicacion){
+// remoto o direccion
     return ubicacion !== "Online" ? ubicacion : "Remota"; 
 }
 
@@ -105,10 +112,11 @@ function mostrarActivo(activo){
 async function obtenerFeriado(id){
     try{
         const response = await fetch(`${urlPrincipal}/api/eventos/${id}/feriado`);
-        const datos = await response.json();
+        const datos = await response.json(); // {infoEvento: {…}, esFeriado: true, tipoFeriado: 'Carnaval'}
         
         const feriadoConId = document.getElementById(`feriado-${id}`); //edita segun dato de feriado
         feriadoConId.textContent = datos.esFeriado ? `Feriado: ${datos.tipoFeriado}` : "Día hábil"; //de datos solo la info necesaria
+    
     }catch(err){
         const feriadoConId = document.getElementById(`feriado-${id}`);
         feriadoConId.textContent = "No se pudo consultar el feriado";

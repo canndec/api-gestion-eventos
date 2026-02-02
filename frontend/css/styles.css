@@ -1,3 +1,12 @@
+:root {
+    --amarillo: #FFD77A;
+    --amarillo-suave: #f1c96a;
+    --fondo-general: #FAF7F2; 
+    --blanco: #FFFFFF;
+    --texto-principal: #3A3A3A;
+    --texto-secundario: #6B6B6B;
+    --bordoTexto: rgb(114, 46, 46);
+}
 * {
     margin:0;
     font-family:'Inter', sans-serif;
@@ -11,15 +20,6 @@ body{
 }
 main {
     flex: 1;
-}
-:root {
-    --amarillo: #FFD77A;
-    --amarillo-suave: #f1c96a;
-    --fondo-general: #FAF7F2; 
-    --blanco: #FFFFFF;
-    --texto-principal: #3A3A3A;
-    --texto-secundario: #6B6B6B;
-    --bordoTexto: rgb(114, 46, 46);
 }
 header {
     background-color: var(--amarillo-suave);
