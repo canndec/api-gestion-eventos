@@ -64,5 +64,71 @@
         "pais": "AR",
         "descripcion": "Charla sobre como dar y recibir críticas para mejorar",
         "activo": true
+    },
+    {
+        "id": 7,
+        "titulo": "Taller de Bienestar Laboral",
+        "tipo": "Workshop",
+        "fecha": "2026-03-10",
+        "modalidad": "Online",
+        "ubicacion": "Online",
+        "pais": "AR",
+        "descripcion": "Workshop práctico sobre técnicas de relajación y ergonomía en el home office.",
+        "activo": true
+    },
+    {
+        "id": 8,
+        "titulo": "Nuevas Políticas de la Empresa",
+        "tipo": "Charla",
+        "fecha": "2026-03-23",
+        "modalidad": "Presencial",
+        "ubicacion": "Calle Falsa 123, Córdoba",
+        "pais": "AR",
+        "descripcion": "Charla informativa sobre los cambios en el reglamento interno y beneficios.",
+        "activo": true
+    },
+    {
+        "id": 9,
+        "titulo": "Festejo Fin de Proyecto Alpha",
+        "tipo": "Celebracion",
+        "fecha": "2026-06-05",
+        "modalidad": "Presencial",
+        "ubicacion": "Av. Corrientes 450, CABA",
+        "pais": "AR",
+        "descripcion": "Celebración por el cierre exitoso del proyecto más grande del trimestre.",
+        "activo": true
+    },
+    {
+        "id": 10,
+        "titulo": "Optimización de Consultas SQL",
+        "tipo": "Workshop",
+        "fecha": "2026-06-15",
+        "modalidad": "Online",
+        "ubicacion": "Online",
+        "pais": "AR",
+        "descripcion": "Workshop avanzado para mejorar el rendimiento de bases de datos relacionales.",
+        "activo": false
+    },
+    {
+        "id": 11,
+        "titulo": "Tendencias de Mercado 2026",
+        "tipo": "Charla",
+        "fecha": "2026-0-12",
+        "modalidad": "Online",
+        "ubicacion": "Online",
+        "pais": "AR",
+        "descripcion": "Charla sobre el análisis de mercado y proyecciones para el segundo semestre.",
+        "activo": true
+    },
+    {
+        "id": 12,
+        "titulo": "Almuerzo de Bienvenida: Nuevos Ingresos",
+        "tipo": "Celebracion",
+        "fecha": "2026-04-10",
+        "modalidad": "Presencial",
+        "ubicacion": "Paseo del Siglo 1800, Rosario",
+        "pais": "AR",
+        "descripcion": "Celebración para recibir a los integrantes que se sumaron al equipo este mes.",
+        "activo": true
     }
 ]

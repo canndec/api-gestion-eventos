@@ -1,5 +1,5 @@
 
-let contenedorEventos = document.getElementById("contenedorEventos");
+let contenedorEventos = document.getElementById("contenedorEventos"); //contenedor de las tarjetas
 let urlPrincipal = "http://localhost:3300";
 let dataDeEventos = [];
 
@@ -10,6 +10,10 @@ let inputParaFiltrar = document.getElementById("inputFiltrar");
 inputParaFiltrar.addEventListener("keyup", () =>{
     let tituloABuscar = inputParaFiltrar.value.toLowerCase();
     let tituloCoincidente = dataDeEventos.filter(e => e.titulo.toLowerCase().includes(tituloABuscar));
+    if(tituloCoincidente.length === 0){
+        contenedorEventos.innerHTML = `<div id="mensajeNoHay"><p>No hay eventos relacionados</p></div>`;
+        return;
+    }
     mostrarEventos(tituloCoincidente);
 })
 
@@ -18,8 +22,9 @@ let ordenarPorFecha = document.getElementById("botonOrdenarFecha");
 ordenarPorFecha.addEventListener("click", () => {
     let ordenados = [...dataDeEventos].sort((a,b) => new Date(a.fecha) - new Date(b.fecha)); 
     mostrarEventos(ordenados);
-});
+    });
 
+    
 // filtro para seleccionar opcion (tipoEvento)
 let opcionDeFiltrado = document.getElementById("tipoDeEvento");
 opcionDeFiltrado.addEventListener("change",() => {
@@ -68,25 +73,33 @@ function mostrarEventos(dataDeEventos){
     dataDeEventos.forEach(evento =>{
         html += `
         <div class="cartaDeEvento">
-        <p>Tipo de evento: ${evento.tipo}</p>
-        <h2>${evento.titulo}</h2>
-        <p>Descripción: ${evento.descripcion}</p>
-        <p>Fecha: ${evento.fecha}</p>
-        <p>Modalidad: ${evento.modalidad}</p>
-        <p>Ubicación: ${mostrarUbicacion(evento.ubicacion)}</p>
-        <p>${mostrarActivo(evento.activo)}</p>
-        <p id="feriado-${evento.id}">Consultado feriado...</p>
+            <p>Tipo de evento: <strong>${evento.tipo}</strong></p>
+            <h2>${evento.titulo}</h2>
+            <p>${evento.descripcion}</p>
+            <p>Fecha: ${evento.fecha}</p>
+            <p>Modalidad: ${mostrarModalidad(evento.modalidad)}</strong></p>
+            <p>Ubicación: ${mostrarUbicacion(evento.ubicacion)}</p>
+            <p>${mostrarActivo(evento.activo)}</p>
+            <p id="feriado-${evento.id}">Consultado feriado...</p>
         </div>
         `;
     });
     contenedorEventos.innerHTML = html;
-    dataDeEventos.forEach(evento => obtenerFeriado(evento.id))
+    dataDeEventos.forEach(evento => obtenerFeriado(evento.id)); //en caso de que sea feriado(por API) lo agrega
 }
+
+function mostrarModalidad(modalidad){
+    let tipoModalidad = modalidad === "Online" ? "Virtual" : modalidad;
+    let nombreClase = tipoModalidad === "Virtual" ? "modalidadVirtual" : "modalidadPresencial";
+    return `<strong class="${nombreClase}">${tipoModalidad}</strong>`;
+}
+
 function mostrarUbicacion(ubicacion){
     return ubicacion !== "Online" ? ubicacion : "Remota"; 
 }
+
 function mostrarActivo(activo){
-    return activo !== true ? "Activo: No - Cancelado" : "Activo: Si - A realizarse";
+    return activo !== true ? `<strong> Activo: No - Cancelado </strong>` : "Activo: Si - A realizarse";
 }
 
 async function obtenerFeriado(id){
@@ -94,8 +107,8 @@ async function obtenerFeriado(id){
         const response = await fetch(`${urlPrincipal}/api/eventos/${id}/feriado`);
         const datos = await response.json();
         
-        const feriadoConId = document.getElementById(`feriado-${id}`);
-        feriadoConId.textContent = datos.esFeriado ? `Feriado: ${datos.tipoFeriado}` : "Día hábil";
+        const feriadoConId = document.getElementById(`feriado-${id}`); //edita segun dato de feriado
+        feriadoConId.textContent = datos.esFeriado ? `Feriado: ${datos.tipoFeriado}` : "Día hábil"; //de datos solo la info necesaria
     }catch(err){
         const feriadoConId = document.getElementById(`feriado-${id}`);
         feriadoConId.textContent = "No se pudo consultar el feriado";

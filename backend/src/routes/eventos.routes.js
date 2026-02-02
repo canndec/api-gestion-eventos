@@ -1,9 +1,9 @@
 import { Router } from "express";
-import fs from "fs";
+import fs from "fs/promises";
 const router = Router();
 
-function leerEventosJSON(){
-    const datos = fs.readFileSync("src/data/eventos.json", "utf-8");
+async function leerEventosJSON(){
+    const datos = await fs.readFile("src/data/eventos.json", "utf-8");
     return JSON.parse(datos);
 };
 
@@ -72,14 +72,15 @@ router.get("/:id/feriado", async (req,res) => {
         }
         let año = eventoConId.fecha.split("-")[0]; //separarlo y guardar solo el año
         
-        const response = await fetch(`https://date.nager.at/api/v3/PublicHolidays/${año}/${eventoConId.pais}`);
-        const feriados = await response.json();
+        const response = await fetch(`https://date.nager.at/api/v3/PublicHolidays/${año}/${eventoConId.pais}`); //API externa
+        const feriados = await response.json(); //parseo
         let feriado = feriados.find(f => f.date === eventoConId.fecha);
         res.json({
             eventoConId,
             esFeriado: feriado ? true : false,
             tipoFeriado: feriado ? feriado.localName : null
-        })
+        }); //se agrega como obj el evento si es feriado y su nombre en caso de corresponder
+        // la respuesta pasa a ser un objeto donde tiene el array con los datos del evento y otro con datos del feriado agregado
     }
     catch (err) {
         console.log(err);

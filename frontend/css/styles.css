@@ -1,3 +1,73 @@
+* {
+    margin:0;
+    font-family:'Inter', sans-serif;
+}
+body{
+    background-color: var(--fondo-general);
+    color: var(--texto-principal);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column; 
+}
+main {
+    flex: 1;
+}
+:root {
+    --amarillo: #FFD77A;
+    --amarillo-suave: #f1c96a;
+    --fondo-general: #FAF7F2; 
+    --blanco: #FFFFFF;
+    --texto-principal: #3A3A3A;
+    --texto-secundario: #6B6B6B;
+    --bordoTexto: rgb(114, 46, 46);
+}
+header {
+    background-color: var(--amarillo-suave);
+    padding: 23px;
+    display: flex;
+    justify-content: space-evenly;
+}
+h1 {
+    font-weight: 700;
+    font-size: 2rem;
+    background-color: transparent; 
+    padding-inline: 10px;
+    color: white;
+    border-radius: 20px;
+}
+
+.seccionFiltros{
+    background-color: var(--amarillo);
+    padding: 27px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#inputFiltrar, #botonOrdenarFecha,select{
+    cursor: pointer;
+    background-color:var(--blanco);
+    border: 1px solid #ddd;
+    padding: 8px 14px;
+    border-radius: 20px;
+}
+
+input:focus, select:focus {
+    outline: none; 
+    border-color: var(--acento);
+}
+#botonOrdenarFecha:active{
+    background-color:rgba(255, 255, 255, 0.089) ;
+}
+
+#mensajeNoHay{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bordoTexto);
+    text-align: center;
+    font-size:larger;
+}
 #contenedorEventos{
     display: flex;
     justify-content: center;
@@ -5,9 +75,42 @@
     margin: 50px;
 }
 .cartaDeEvento{
-    border: 2px solid;
-    width: 300px;
+    width: 320px;
+    height: 350px;
     padding: 30px;
     margin: 30px;
     border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--blanco);
+    color: var(--texto-principal);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+.cartaDeEvento:hover{
+    transform: translateY(-8px);
+}
+.cartaDeEvento h2 {
+    padding: 5px;
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--texto-principal);
+}
+.cartaDeEvento p{
+    font-size: 0.9rem;
+    color: var(--texto-secundario);
+}
+.modalidadVirtual {
+    color: rgb(53, 133, 64);
+}
+.modalidadPresencial{
+    color: var(--bordoTexto);
+}
+
+footer p{
+    background-color: var(--fondo-general);
+    font-size: larger;
+    padding: 30px;
+    text-align: center;
+    font-family:'Inter', sans-serif;
 }
