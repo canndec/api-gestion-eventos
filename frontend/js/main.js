@@ -83,7 +83,6 @@ function mostrarEventos(dataDeEventos){
             <p>Ubicación: ${mostrarUbicacion(evento.ubicacion)}</p>
             <p>${mostrarActivo(evento.activo)}</p>
             <p id="feriado-${evento.id}">Consultado feriado...</p>
-            <button id="botonEditar" onclick="editarEvento(${evento.id})">Editar</button>
         </div>
         `;
     });

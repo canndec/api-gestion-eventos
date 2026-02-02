@@ -3,7 +3,7 @@
     --amarillo-suave: #f1c96a;
     --fondo-general: #FAF7F2; 
     --blanco: #FFFFFF;
-    --texto-principal: #3A3A3A;
+    --texto-principal: #3b3b3b;
     --texto-secundario: #6B6B6B;
     --bordoTexto: rgb(114, 46, 46);
 }
@@ -53,7 +53,6 @@ h1 {
 
 input:focus, select:focus {
     outline: none; 
-    border-color: var(--acento);
 }
 #botonOrdenarFecha:active{
     background-color:rgba(255, 255, 255, 0.089) ;
